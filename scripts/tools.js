@@ -57,7 +57,7 @@ function handleToolSelection(toolName) {
       tool.lineWidth = 1;
       break;
     case "eraser":
-      toggleEraserSize();
+      togglePencilColors();
       pickColor.style.display = "none";
       tool.strokeStyle = "#fff";
       tool.lineWidth = 10;
@@ -83,11 +83,6 @@ function handleToolSelection(toolName) {
 function togglePencilColors() {
   pencilColorsContainer.style.display = isOpenPencilColors ? "none" : "block";
   isOpenPencilColors = !isOpenPencilColors;
-}
-
-function toggleEraserSize() {
-  eraserSize.style.display = isOpenEraserSize ? "none" : "block";
-  isOpenEraserSize = !isOpenEraserSize;
 }
 
 // Drawing logic

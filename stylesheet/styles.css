@@ -119,14 +119,13 @@ body {
   padding-top: 10vh !important;
   padding: 17px;
   background: #e9e9e9;
-  text-align: center;
 }
 
 #eraserSize {
   width: 200px;
   margin-left: 30px;
   background: #e9e9e9;
-  text-align: center;
+  
 }
 
 canvas {
@@ -152,15 +151,9 @@ canvas {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
-  background: #04aa6d;
+  width: 15px;
+  height: 20px;
+  background: blue;
   cursor: pointer;
 }
 
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: #04aa6d;
-  cursor: pointer;
-}

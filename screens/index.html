@@ -36,7 +36,7 @@
         <div id="pencilColorsContainer">
             <div style="display: flex; justify-content: center">
                 <div id="pickColor">
-                    <p >Choose Pencil Color</p>
+                    <p style="margin-bottom: 3px;">Choose Pencil Color</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 5px; justify-content: center">
                         <div class="boxColor" id="redColor" style="background-color: #FF0000"></div>
                         <div class="boxColor" id="blueColor" style="background-color: #0F00FF"></div>
@@ -47,9 +47,12 @@
                     </div>
                 </div>
                 <div id="eraserSize">
-                    <h5>Size</h5>
-                    <input type="range" min="1" max="100" value="10" class="slider" id="myRange">
-                    <h5 class="demo"></h5>
+                    <p style="margin-bottom: 3px;">Size</p>
+                    <div style="display: flex">
+                        <input style="height: 20px;" type="range" min="1" max="100" value="10" class="slider" id="myRange">
+                        <h5 class="demo"></h5>
+                    </div>
+                   
                 </div>
             </div>
         </div>
