@@ -34,24 +34,11 @@ body {
   margin: 0 5px;
 }
 
-.canvas-container {
-  background-color: #fff; /* Light Gray */
-}
 .row {
   padding: 0;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  margin-top: 8vh !important;
+  margin: 8vh 0 0 0 !important;
 }
 
-canvas {
-  background-color: white;
-  border: 1px solid #ccc; /* Light Gray */
-  border-radius: 8px;
-  box-shadow: 0 0 18px 2px rgb(97 97 97 / 6%);
-  width: 100% !important;
-  height: 100% !important;
-}
 .stickyCenter {
   display: flex;
   position: absolute;
@@ -60,6 +47,7 @@ canvas {
   top: 10vh;
   z-index: 1;
 }
+
 .sticky {
   width: 250px;
   font-size: 14px;
@@ -78,9 +66,11 @@ canvas {
   align-items: center;
   padding: 5px;
 }
+
 .sticky .header p {
   flex: 1;
   padding-left: 5px;
+  margin: 0;
 }
 
 .sticky .close-icon {
@@ -99,46 +89,59 @@ canvas {
   background-color: #fffbea;
   border: 1px solid #ffecb3;
 }
+
 .sticky .body textarea {
   padding: 10px;
 }
+
 .upload-img {
   width: calc(100% - 0px);
   object-fit: contain;
   height: 250px;
 }
+
 .sticky .body:focus {
   outline: none;
 }
-.sticky .header p {
-  margin: 0;
-}
+
 .input-tag {
   display: none;
 }
+
 .boxColor {
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   border-radius: 5px;
 }
 
-#sidebar {
+#pencilColorsContainer {
   display: none;
+  padding-top: 10vh !important;
+  padding: 17px;
+  background: #e9e9e9;
+  text-align: center;
 }
 
-#slidecontainer {
-  display: none;
+#eraserSize {
+  width: 200px;
+  margin-left: 30px;
+  background: #e9e9e9;
+  text-align: center;
+}
+
+canvas {
+  cursor: url(../images/Black_Pencil.svg), auto;
 }
 
 .slider {
-  -webkit-appearance: none; /* Override default CSS styles */
+  -webkit-appearance: none;
   appearance: none;
-  width: 100%; /* Full-width */
-  height: 25px; /* Specified height */
-  background: #d3d3d3; /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
   transition: opacity 0.2s;
 }
 
