@@ -36,7 +36,6 @@ body {
 
 .canvas-container {
   background-color: #fff; /* Light Gray */
-  
 }
 .row {
   padding: 0;
@@ -46,12 +45,12 @@ body {
 }
 
 canvas {
-  padding: 10px !important;
   background-color: white;
   border: 1px solid #ccc; /* Light Gray */
   border-radius: 8px;
   box-shadow: 0 0 18px 2px rgb(97 97 97 / 6%);
   width: 100% !important;
+  height: 100% !important;
 }
 .stickyCenter {
   display: flex;
@@ -117,13 +116,13 @@ canvas {
 .input-tag {
   display: none;
 }
-.boxColor{
+.boxColor {
   height: 30px;
   width: 30px;
   border-radius: 5px;
 }
 
-#sidebar{
+#sidebar {
   display: none;
 }
 
@@ -131,35 +130,34 @@ canvas {
   display: none;
 }
 
-
 .slider {
-  -webkit-appearance: none;  /* Override default CSS styles */
+  -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
   height: 25px; /* Specified height */
   background: #d3d3d3; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-  transition: opacity .2s;
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
 }
 
 .slider:hover {
-  opacity: 1; 
+  opacity: 1;
 }
 
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none; 
+  -webkit-appearance: none;
   appearance: none;
-  width: 25px; 
-  height: 25px; 
-  background: #04AA6D; 
+  width: 25px;
+  height: 25px;
+  background: #04aa6d;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  width: 25px; 
-  height: 25px; 
-  background: #04AA6D; 
-  cursor: pointer; 
+  width: 25px;
+  height: 25px;
+  background: #04aa6d;
+  cursor: pointer;
 }

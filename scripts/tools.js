@@ -73,8 +73,11 @@ canvas.addEventListener("mousedown", function (e) {
   const rect = canvas.getBoundingClientRect();
   let sidx = e.clientX - rect.left;
   let sidy = e.clientY - rect.top;
+
   tool.beginPath();
   tool.moveTo(sidx, sidy);
+
+  
   const xyCoordinates = {
     x: e.clientX - rect.left,
     y: e.clientY - rect.top,
