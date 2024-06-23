@@ -10,9 +10,8 @@ Welcome to the Real-Time Whiteboard Application repository! This project aims to
 
 ## Technologies Used
 
-- **Frontend:** HTML5, CSS3, JavaScript (React.js for interactive components)
-- **Backend:** Node.js, Express.js, WebSocket for real-time communication
-- **Data Structures and Algorithms Visualizations:** D3.js or similar for visualization
+- **Frontend:** HTML5, CSS3, Pure JavaScript
+- **Data Structures and Algorithms: Stack
 
 ## Setup Instructions
 
