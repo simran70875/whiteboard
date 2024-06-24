@@ -98,7 +98,6 @@ function startDrawing(e) {
   tool.moveTo(x, y);
   console.log(toolName);
   if (toolName != "eraser") {
-    console.log("toolName ==> ", toolName);
     undoStack.push({
       x,
       y,
@@ -106,7 +105,6 @@ function startDrawing(e) {
       strokeColor: tool.strokeStyle,
       strokWidth: tool.lineWidth,
     });
-    console.log("undoStack ==> ", undoStack);
   }
 }
 
@@ -116,7 +114,6 @@ function draw(e) {
   tool.lineTo(x, y);
   tool.stroke();
   if (toolName != "eraser") {
-    console.log("toolName ==> ", toolName);
     undoStack.push({
       x,
       y,
@@ -124,8 +121,6 @@ function draw(e) {
       strokeColor: tool.strokeStyle,
       strokWidth: tool.lineWidth,
     });
-    console.log("undoStack ==> ", undoStack);
-    s;
   }
 }
 
@@ -189,16 +184,20 @@ function createSticky() {
 function uploadImg() {
   const inputTag = document.querySelector(".input-tag");
   inputTag.click();
-  inputTag.addEventListener("change", () => {
-    const dataImg = inputTag.files[0];
-    const img = document.createElement("img");
-    img.src = URL.createObjectURL(dataImg);
-    img.className = "upload-img";
-
-    const stickyBody = createOuterShell();
-    stickyBody.appendChild(img);
-  });
 }
+
+// Add event listener outside of uploadImg()
+const inputTag = document.querySelector(".input-tag");
+inputTag.addEventListener("change", () => {
+  const dataImg = inputTag.files[0];
+  const img = document.createElement("img");
+  img.src = URL.createObjectURL(dataImg);
+  img.className = "upload-img";
+
+  const stickyBody = createOuterShell();
+  stickyBody.appendChild(img);
+});
+
 
 function download() {
   html2canvas(canvasContainer).then((canvas) => {
