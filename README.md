@@ -2,8 +2,6 @@
 
 Welcome to the Real-Time Whiteboard Application repository! This project aims to provide a collaborative whiteboard environment tailored for developers, integrating real-world concepts like Data Structures and Algorithms (DSA).
 
-[Watch the Demo Video](./images/whiteboard.mp4)
-
 ## Features
 
 - **Real-Time Collaboration:** Multiple users can simultaneously collaborate on the same whiteboard, seeing changes in real-time.
