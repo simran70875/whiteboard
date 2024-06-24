@@ -1,3 +1,5 @@
+// connect to socket server
+const socket = io.connect("https://pepboard-1.onrender.com");
 // Initialize canvas and drawing tool
 const canvasContainer = document.querySelector(".canvas-container");
 const canvas = document.querySelector("#whiteboard");
@@ -21,6 +23,7 @@ output.innerHTML = slider.value;
 slider.oninput = function () {
   output.innerHTML = this.value;
   tool.lineWidth = this.value;
+  socket.emit("size",  this.value);
 };
 
 // Handle pencil color selection
