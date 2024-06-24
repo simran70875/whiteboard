@@ -39,11 +39,11 @@ pencilColors.forEach((colorBox) => {
     tool.lineWidth = 1;
   });
 });
-
+let toolName;
 // Handle tool selection
 document.querySelectorAll(".tool").forEach((toolElement) => {
   toolElement.addEventListener("click", (e) => {
-    const toolName = toolElement.id;
+    toolName = toolElement.id;
     handleToolSelection(toolName);
   });
 });
@@ -96,7 +96,18 @@ function startDrawing(e) {
   const { x, y } = getCanvasCoordinates(e);
   tool.beginPath();
   tool.moveTo(x, y);
-  undoStack.push({ x, y, desc: "md" });
+  console.log(toolName);
+  if (toolName != "eraser") {
+    console.log("toolName ==> ", toolName);
+    undoStack.push({
+      x,
+      y,
+      desc: "md",
+      strokeColor: tool.strokeStyle,
+      strokWidth: tool.lineWidth,
+    });
+    console.log("undoStack ==> ", undoStack);
+  }
 }
 
 function draw(e) {
@@ -104,7 +115,18 @@ function draw(e) {
   const { x, y } = getCanvasCoordinates(e);
   tool.lineTo(x, y);
   tool.stroke();
-  undoStack.push({ x, y, desc: "mm" });
+  if (toolName != "eraser") {
+    console.log("toolName ==> ", toolName);
+    undoStack.push({
+      x,
+      y,
+      desc: "mm",
+      strokeColor: tool.strokeStyle,
+      strokWidth: tool.lineWidth,
+    });
+    console.log("undoStack ==> ", undoStack);
+    s;
+  }
 }
 
 function stopDrawing() {
@@ -206,7 +228,9 @@ function redo() {
 }
 
 function reDraw() {
-  for (const { x, y, desc } of undoStack) {
+  for (const { x, y, desc, strokeColor, strokWidth } of undoStack) {
+    tool.strokeStyle = strokeColor;
+    tool.lineWidth = strokWidth;
     if (desc === "md") {
       tool.beginPath();
       tool.moveTo(x, y);
