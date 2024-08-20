@@ -1,0 +1,17 @@
+{
+  "name": "realtime_whiteboard",
+  "version": "1.0.0",
+  "description": "Welcome to the Real-Time Whiteboard Application repository! This project offers a collaborative whiteboard environment designed for everyone, from students to professionals. It integrates real-world concepts to make learning and collaboration intuitive and engaging.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}
