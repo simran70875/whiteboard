@@ -7,11 +7,12 @@ const tool = canvas.getContext("2d");
 
 let drawing = false;
 let isOpenPencilColors = false;
-let isOpenEraserSize = false;
+let isOpenEraserContainer = false;
 const pencilColorsContainer = document.querySelector("#pencilColorsContainer");
-const eraserSize = document.querySelector("#eraserSize");
 const pickColor = document.querySelector("#pickColor");
 const pencilColors = document.querySelectorAll(".boxColor");
+
+const eraserContainer = document.querySelector("#eraserContainer");
 
 // Initialize slider for line width
 const slider = document.querySelector("#myRange");
@@ -20,6 +21,16 @@ output.innerHTML = slider.value;
 
 slider.oninput = function () {
   output.innerHTML = this.value;
+  tool.lineWidth = this.value;
+};
+
+// Initialize slider for eraser size
+const sliderEraser = document.querySelector("#eraserRange");
+const outputE = document.querySelector(".demoE");
+outputE.innerHTML = sliderEraser.value;
+
+sliderEraser.oninput = function () {
+  outputE.innerHTML = this.value;
   tool.lineWidth = this.value;
 };
 
@@ -39,6 +50,7 @@ pencilColors.forEach((colorBox) => {
     tool.lineWidth = 1;
   });
 });
+
 let toolName;
 // Handle tool selection
 document.querySelectorAll(".tool").forEach((toolElement) => {
@@ -52,13 +64,13 @@ function handleToolSelection(toolName) {
   switch (toolName) {
     case "pencil":
       togglePencilColors();
-      pickColor.style.display = "block";
+      eraserContainer.style.display = "none";
       tool.strokeStyle = "#000";
       tool.lineWidth = 1;
       break;
     case "eraser":
-      togglePencilColors();
-      pickColor.style.display = "none";
+      toggleEraserSize();
+      pencilColorsContainer.style.display = "none";
       tool.strokeStyle = "#fff";
       tool.lineWidth = 10;
       break;
@@ -83,6 +95,10 @@ function handleToolSelection(toolName) {
 function togglePencilColors() {
   pencilColorsContainer.style.display = isOpenPencilColors ? "none" : "block";
   isOpenPencilColors = !isOpenPencilColors;
+}
+function toggleEraserSize() {
+  eraserContainer.style.display = isOpenEraserContainer ? "none" : "block";
+  isOpenEraserContainer = !isOpenEraserContainer;
 }
 
 // Drawing logic
@@ -197,7 +213,6 @@ inputTag.addEventListener("change", () => {
   const stickyBody = createOuterShell();
   stickyBody.appendChild(img);
 });
-
 
 function download() {
   html2canvas(canvasContainer).then((canvas) => {

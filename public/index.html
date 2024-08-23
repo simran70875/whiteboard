@@ -10,25 +10,25 @@
 <body>
     <div class="toolbar">
         <div class="tool" id="pencil" title="Pencil">
-            <img src="../images/Black_Pencil.svg" alt="Pencil Icon">Pencil
+            <img src="./images/Black_Pencil.svg" alt="Pencil Icon">Pencil
         </div>
         <div class="tool" id="eraser" title="Eraser">
-            <img src="../images/Eraser.svg" alt="Eraser Icon">Eraser
+            <img src="./images/Eraser.svg" alt="Eraser Icon">Eraser
         </div>
         <div class="tool" id="upload" title="Upload">
-            <img src="../images/Photo.svg" alt="Upload Image Icon">Upload Image
+            <img src="./images/Photo.svg" alt="Upload Image Icon">Upload Image
         </div>
         <div class="tool" id="sticky" title="Sticky Note">
-            <img src="../images/StickyNote.svg" alt="Sticky Note Icon">Add Sticky Note
+            <img src="./images/StickyNote.svg" alt="Sticky Note Icon">Add Sticky Note
         </div>
         <div class="tool" id="download" title="Download">
-            <img src="../images/Download.svg" alt="Download Icon">Download
+            <img src="./images/Download.svg" alt="Download Icon">Download
         </div>
         <div class="tool" id="undo" title="Undo">
-            <img src="../images/Undo.svg" alt="Undo Icon">Undo
+            <img src="./images/Undo.svg" alt="Undo Icon">Undo
         </div>
         <div class="tool" id="redo" title="Redo">
-            <img src="../images/Redo.svg" alt="Redo Icon">Redo
+            <img src="./images/Redo.svg" alt="Redo Icon">Redo
         </div>
         <input class="input-tag" type="file" accept=".jpg,.png,.jpeg">
     </div>
@@ -46,19 +46,30 @@
                         <div class="boxColor" id="blackColor" style="background-color: #000000"></div>
                     </div>
                 </div>
-                <div id="eraserSize">
+                <div id="penSize">
                     <p style="margin-bottom: 3px;">Size</p>
                     <div style="display: flex">
-                        <input style="height: 20px;" type="range" min="1" max="100" value="10" class="slider" id="myRange">
+                        <input style="height: 20px;" type="range" min="1" max="10" value="1" class="slider" id="myRange">
                         <h5 class="demo"></h5>
                     </div>
                    
                 </div>
             </div>
         </div>
+        <div id="eraserContainer">
+            <div id="penSize">
+                <p style="margin-bottom: 3px;">Size</p>
+                <div style="display: flex">
+                    <input style="height: 20px;" type="range" min="10" max="100" value="10" class="slider" id="eraserRange">
+                    <h5 class="demoE"></h5>
+                </div>
+               
+            </div>
+        </div>
     </div>
     <div class="canvas-container">
-        <canvas id="whiteboard"></canvas>
+        <canvas id="whiteboard">
+        </canvas>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
