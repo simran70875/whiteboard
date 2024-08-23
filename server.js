@@ -1,27 +1,51 @@
-const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
-const path = require("path");
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const path = require('path');
+const cors = require('cors');
 
+// Create an Express app
 const app = express();
+app.use(cors()); 
+// Create an HTTP server and integrate with Socket.IO
 const server = http.createServer(app);
 const io = socketIo(server);
 
 // Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Handle socket connection
-io.on("connection", (socket) => {
-  console.log("New client connected");
+// Handle Socket.IO connections
+io.on('connection', (socket) => {
+  console.log('A user connected');
 
-  socket.on("drawing", (data) => {
-    socket.broadcast.emit("drawing", data);
+  // Handle drawing events
+  socket.on('drawing', (data) => {
+    socket.broadcast.emit('drawing', data);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
+  // Handle sticky note creation events
+  socket.on('createSticky', (data) => {
+    socket.broadcast.emit('createSticky', data);
+  });
+
+  // Handle undo events
+  socket.on('undo', (data) => {
+    socket.broadcast.emit('undo', data);
+  });
+
+  // Handle redo events
+  socket.on('redo', (data) => {
+    socket.broadcast.emit('redo', data);
+  });
+
+  // Handle disconnections
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
   });
 });
 
+// Start the server
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

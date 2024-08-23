@@ -1,4 +1,14 @@
 // Initialize canvas and drawing tool
+const socket = io('http://localhost:3000');
+
+socket.on('connect', () => {
+  console.log('Connected to server');
+});
+
+socket.on('disconnect', () => {
+  console.log('Disconnected from server');
+});
+
 const canvasContainer = document.querySelector(".canvas-container");
 const canvas = document.querySelector("#whiteboard");
 canvas.width = window.innerWidth;
@@ -122,6 +132,7 @@ function startDrawing(e) {
       strokWidth: tool.lineWidth,
     });
   }
+  socket.emit("drawing", { x, y, toolName, action: "start" });
 }
 
 function draw(e) {
@@ -138,11 +149,32 @@ function draw(e) {
       strokWidth: tool.lineWidth,
     });
   }
+  // Emit drawing event
+  socket.emit("drawing", { x, y, toolName, action: "draw" });
 }
 
 function stopDrawing() {
   drawing = false;
+  // Emit drawing stop event
+  socket.emit("drawing", { action: "stop" });
 }
+
+// Listen for drawing events from the server
+socket.on("drawing", ({ x, y, toolName, action }) => {
+  switch (action) {
+    case "start":
+      tool.beginPath();
+      tool.moveTo(x, y);
+      break;
+    case "draw":
+      tool.lineTo(x, y);
+      tool.stroke();
+      break;
+    case "stop":
+      drawing = false;
+      break;
+  }
+});
 
 function getCanvasCoordinates(event) {
   const rect = canvas.getBoundingClientRect();
@@ -195,7 +227,18 @@ function createSticky() {
   textArea.className = "body";
   textArea.textContent = "I am body content";
   stickyBody.appendChild(textArea);
+  // Emit sticky note creation event
+  socket.emit("createSticky", { content: textArea.textContent });
 }
+
+// Listen for sticky note events
+socket.on("createSticky", ({ content }) => {
+  const stickyBody = createOuterShell();
+  const textArea = document.createElement("textarea");
+  textArea.className = "body";
+  textArea.textContent = content;
+  stickyBody.appendChild(textArea);
+});
 
 function uploadImg() {
   const inputTag = document.querySelector(".input-tag");
@@ -229,6 +272,8 @@ function undo() {
   if (undoStack.length > 0) {
     tool.clearRect(0, 0, canvas.width, canvas.height);
     redoStack.push(undoStack.pop());
+    // Emit undo event
+    socket.emit("undo", { undoStack, redoStack });
     reDraw();
   }
 }
@@ -237,9 +282,22 @@ function redo() {
   if (redoStack.length > 0) {
     tool.clearRect(0, 0, canvas.width, canvas.height);
     undoStack.push(redoStack.pop());
+     // Emit redo event
+     socket.emit('redo', { undoStack, redoStack });
     reDraw();
   }
 }
+
+// Listen for undo/redo events
+socket.on('undo', ({ undoStack, redoStack }) => {
+  tool.clearRect(0, 0, canvas.width, canvas.height);
+  reDraw(undoStack);
+});
+
+socket.on('redo', ({ undoStack, redoStack }) => {
+  tool.clearRect(0, 0, canvas.width, canvas.height);
+  reDraw(undoStack);
+});
 
 function reDraw() {
   for (const { x, y, desc, strokeColor, strokWidth } of undoStack) {
