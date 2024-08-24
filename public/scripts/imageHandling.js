@@ -12,7 +12,18 @@ inputTag.addEventListener("change", () => {
   img.className = "upload-img";
   const stickyBody = createOuterShell();
   stickyBody.appendChild(img);
+  imgsrc = URL.createObjectURL(dataImg);
+
+  socket.emit("addImage",{ imgsrc });
 });
+
+socket.on("addImage",({imgsrc}) =>{
+  const img = document.createElement("img");
+  img.src = imgsrc;
+  img.className = "upload-img";
+  const stickyBody = createOuterShell();
+  stickyBody.appendChild(img);
+})
 
 function download() {
   html2canvas(canvasContainer).then((canvas) => {

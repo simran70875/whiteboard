@@ -19,6 +19,10 @@ function handleToolSelection(toolName) {
       pencilColorsContainer.style.display = "none";
       tool.strokeStyle = "#fff";
       tool.lineWidth = 10;
+      color = '#fff';
+      size = 10;
+
+      socket.emit("eraser",{color,size});
       break;
     case "sticky":
       createSticky();
@@ -38,6 +42,11 @@ function handleToolSelection(toolName) {
   }
 }
 
+
+socket.on("eraser",({color,size}) =>{
+  tool.strokeStyle = color;
+  tool.lineWidth = size;
+})
 
 
 

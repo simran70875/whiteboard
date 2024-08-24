@@ -8,6 +8,10 @@ function createOuterShell() {
   const closeIcon = document.createElement("span");
   const minimizeDiv = document.createElement("span");
 
+  // Assign a unique ID to the sticky note
+  const stickyId = `sticky-${Date.now()}`;
+  stickyCenter.id = stickyId;
+
   stickyCenter.className = "stickyCenter";
   stickyDiv.className = "sticky";
   header.className = "header";
@@ -26,7 +30,15 @@ function createOuterShell() {
   stickyCenter.appendChild(stickyDiv);
   canvasContainer.appendChild(stickyCenter);
 
-  closeIcon.addEventListener("click", () => stickyCenter.remove());
+  closeIcon.addEventListener("click", () => {
+    stickyCenter.remove();
+    socket.emit("closeSticky", { stickyId });
+  });
+
+  socket.on("closeSticky", ({ id }) => {
+    stickyCenter.remove();
+  });
+
   minimizeDiv.addEventListener("click", () => {
     body.style.display = body.style.display === "none" ? "block" : "none";
   });
@@ -44,35 +56,6 @@ function createSticky() {
   // Emit sticky note creation event
   socket.emit("createSticky", { content: textArea.textContent });
 }
-
-// Drag and Drop functionality
-function addDragAndDrop(element) {
-  let isDragging = false;
-  let initialX, initialY;
-
-  element.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    initialX = e.clientX;
-    initialY = e.clientY;
-  });
-
-  element.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      const dx = e.clientX - initialX;
-      const dy = e.clientY - initialY;
-      const { top, left } = element.getBoundingClientRect();
-      element.style.top = top + dy + "px";
-      element.style.left = left + dx + "px";
-      initialX = e.clientX;
-      initialY = e.clientY;
-    }
-  });
-
-  element.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
-}
-
 // Listen for sticky note events
 socket.on("createSticky", ({ content }) => {
   const stickyBody = createOuterShell();
@@ -81,3 +64,56 @@ socket.on("createSticky", ({ content }) => {
   textArea.textContent = content;
   stickyBody.appendChild(textArea);
 });
+
+function addDragAndDrop(element) {
+  let isDragging = false;
+  let initialX, initialY, currentX, currentY;
+
+  element.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    initialX = e.clientX;
+    initialY = e.clientY;
+    const { top, left } = element.getBoundingClientRect();
+    currentX = left;
+    currentY = top;
+    socket.emit("dragAndDrop", { x: currentX, y: currentY, action: "start" });
+  });
+
+  element.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      const dx = e.clientX - initialX;
+      const dy = e.clientY - initialY;
+      currentX += dx;
+      currentY += dy;
+      element.style.top = currentY + "px";
+      element.style.left = currentX + "px";
+      initialX = e.clientX;
+      initialY = e.clientY;
+      socket.emit("dragAndDrop", { x: currentX, y: currentY, action: "draw" });
+    }
+  });
+
+  element.addEventListener("mouseup", () => {
+    isDragging = false;
+    socket.emit("dragAndDrop", { action: "stop" });
+  });
+
+  socket.on("dragAndDrop", ({ x, y, action }) => {
+    switch (action) {
+      case "start":
+        isDragging = true;
+        currentX = x;
+        currentY = y;
+        break;
+      case "draw":
+        if (isDragging) {
+          element.style.top = y + "px";
+          element.style.left = x + "px";
+        }
+        break;
+      case "stop":
+        isDragging = false;
+        break;
+    }
+  });
+}

@@ -55,7 +55,6 @@ function stopDrawing() {
 }
 
 
-
 // Listen for drawing events from the server
 socket.on("drawing", ({ x, y, toolName, action }) => {
   switch (action) {
