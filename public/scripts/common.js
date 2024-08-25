@@ -1,4 +1,4 @@
-const socket = io("https://whiteboard-tau-eight.vercel.app");
+const socket = io("https://locahost:3000");
 socket.on("connect", () => {
   console.log("Connected to server");
 });

@@ -6,8 +6,7 @@ const cors = require("cors");
 
 // Create an Express app
 const app = express();
-app.use(cors({ origin: 'https://whiteboard-tau-eight.vercel.app' }));
-
+app.use(cors());
 // Create an HTTP server and integrate with Socket.IO
 const server = http.createServer(app);
 const io = socketIo(server);
@@ -77,7 +76,7 @@ io.on("connection", (socket) => {
 });
 
 // Start the server
-const PORT = 'https://whiteboard-five-jade.vercel.app';
+const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
