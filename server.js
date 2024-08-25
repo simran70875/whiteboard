@@ -6,7 +6,14 @@ const cors = require("cors");
 
 // Create an Express app
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: 'https://whiteboard-tau-eight.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 // Create an HTTP server and integrate with Socket.IO
 const server = http.createServer(app);
 const io = socketIo(server);
