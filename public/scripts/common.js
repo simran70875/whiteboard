@@ -1,4 +1,4 @@
-const socket = io("https://whiteboard-five-jade.vercel.app");
+const socket = io("https://whiteboard-tau-eight.vercel.app/");
 socket.on("connect", () => {
   console.log("Connected to server");
 });

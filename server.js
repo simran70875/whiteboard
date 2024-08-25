@@ -7,7 +7,7 @@ const cors = require("cors");
 // Create an Express app
 const app = express();
 const corsOptions = {
-  origin: 'https://whiteboard-tau-eight.vercel.app',
+  origin: 'https://whiteboard-tau-eight.vercel.app/',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204
